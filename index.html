@@ -1,0 +1,128 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pantry.io</title>
+        <link rel="stylesheet" href="assets/styles/main.css">
+    </head>
+    <body>
+        <main>
+            <div class="pantry">
+                <form class="pantry-add">
+                    <input type="text" class="pantry-add-input" placeholder="I have this" />
+                    <button type="submit" class="pantry-add-button">Add</button>
+                </form>
+
+                <ul class="pantry-list"></ul>
+            </div>
+        </main>
+        <script>
+            var $pantryAddInput = document.getElementsByClassName('pantry-add-input')[0];
+            var $pantryForm = document.getElementsByClassName('pantry-add')[0];
+            var $pantryList = document.getElementsByClassName('pantry-list')[0];
+
+            var pantryItems = JSON.parse(localStorage.getItem('pantry'));
+
+            /**
+             * Click function
+             */
+            function clickHandler(event) {
+                var element = event.target;
+
+                // if remove pantry item button is clicked
+                if (element.classList.contains('element-remove')) {
+                    event.preventDefault();
+
+                    removeElement(element)
+                }
+            }
+
+            /**
+             * Watch for onsubmit event
+             */
+            $pantryForm.onsubmit = function(event) {
+                event.preventDefault();
+
+                addElement();
+
+                $pantryAddInput.autofocus;
+            }
+
+            /**
+             * Parse pantry list
+             */
+            function parseList(element, index) {
+                var node = document.createElement('li');
+                var text = document.createTextNode(element);
+                
+                node.dataset.index = index;
+
+                node.innerHTML = '<a href="#" class="element-remove">&times;</a>'; 
+                node.appendChild(text);
+
+                $pantryList.appendChild(node);
+            }
+
+            /**
+             * Remove pantry item
+             */
+            function removeElement(element) {
+                var parent = event.target.parentNode;
+                var parentIndex = parent.dataset.index;
+
+                parent.remove();
+                pantryItems.splice(parentIndex, 1);
+
+                safePantry();
+            }
+
+            /**
+             * Add pantry items
+             */
+            function addElement() {
+                var element = $pantryAddInput.value;
+                var index = pantryItems.length - 1;
+
+                if(element !== '') {
+                    if (pantryItems === null) {
+                        pantryItems = [];
+                        pantryItems.push(panelementryVal);
+                    } else {
+                        pantryItems.push(element);
+                    }
+
+                    safePantry();
+
+                    parseList(element, index);
+
+                    $pantryAddInput.value = '';
+                }
+            }
+
+            /**
+             * Save the contents of pantryItems var to localStorage 
+             */
+            function safePantry() {
+                localStorage.setItem('pantry', JSON.stringify(pantryItems));
+            }
+
+            /**
+             * Create localStorage item if it doesn't excist already... otherwise just parse pantry items
+             */
+            function setup() {      
+                if (localStorage.getItem('pantry') === null || localStorage.getItem('pantry') === undefined) {
+                    localStorage.setItem('pantry', '[]');
+                } else {
+                    pantryItems.forEach(function(element, index) {
+                        parseList(element, index)
+                    });
+                }
+
+                // add event listener for clicks
+                document.addEventListener('click', clickHandler);
+            }
+
+            setup();
+        </script>
+    </body>
+</html>

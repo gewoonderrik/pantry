@@ -1,0 +1,17 @@
+.pantry-list {
+    @include full-width();
+    @include remove-list();
+    margin: 20px 0;
+
+    li {
+        @include full-width
+        border-top: 1px solid $border-color;
+        font-size: 16px;
+        padding: 10px 0;
+        position: relative;
+    }
+
+    li:last-of-type {
+        border-bottom: 1px solid $border-color;
+    }
+}

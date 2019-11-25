@@ -1,0 +1,19 @@
+.element-remove {
+    background-color: $crimson;
+    color: $white;
+    content: '×';
+    cursor: pointer;
+    float: right;
+    font-size: 20px;
+    height: 25px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    text-indent: -1px;
+    transition: all 0.25s ease-in;
+    width: 25px;
+}
+
+    .element-remove:hover {
+        background-color: shade($crimson, 0.25);
+    }

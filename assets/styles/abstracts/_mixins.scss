@@ -1,0 +1,10 @@
+@mixin full-width() {
+    float: left;
+    width: 100%;
+}
+
+@mixin remove-list() {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

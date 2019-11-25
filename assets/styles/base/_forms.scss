@@ -1,0 +1,40 @@
+[type="text"],
+[type="submit"] {
+    -webkit-appearance: none;
+}
+
+[type="text"] {
+    border: 2px solid $border-color;
+    font-size: 16px;
+    height: 40px;
+    margin-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: $transition-speed border $default-easing;
+
+    &:focus,
+    &:active {
+        border-color: $primary-color;
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+[type="submit"] {
+    background-color: $primary-color;
+    border: 0;
+    color: $white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: $transition-speed background-color $default-easing;
+
+    &:hover,
+    &:active {
+        background-color: shade($primary-color, 0.25);
+        box-shadow: none;
+        outline: none;
+    }
+}
