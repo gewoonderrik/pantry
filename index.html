@@ -23,17 +23,34 @@
 
             var pantryItems = JSON.parse(localStorage.getItem('pantry'));
 
+            var selectedItem = {
+              'index': '',
+              'oldValue': '',
+              'newvalue': '',
+            }
+
             /**
              * Click function
              */
             function clickHandler(event) {
                 var element = event.target;
 
-                // if remove pantry item button is clicked
                 if (element.classList.contains('element-remove')) {
                     event.preventDefault();
 
                     removeElement(element)
+                }
+
+                if (element.classList.contains('pantry-item-text')) {
+                    event.preventDefault();
+
+                    element.focus();
+                    element.select();
+
+                    selectedItem.index = element.parentNode.dataset.index;
+                    selectedItem.oldValue = element.value;
+
+                    editElement(element);
                 }
             }
 
@@ -52,15 +69,18 @@
              * Parse pantry list
              */
             function parseList(element, index) {
-                var node = document.createElement('li');
-                var text = document.createTextNode(element);
-                
-                node.dataset.index = index;
+                var listItem = document.createElement('li');
+                var textInput = document.createElement('input');
 
-                node.innerHTML = '<a href="#" class="element-remove">&times;</a>'; 
-                node.appendChild(text);
+                textInput.className = 'pantry-item-text';
+                textInput.type = 'text';
+                textInput.value = element;
 
-                $pantryList.appendChild(node);
+                listItem.dataset.index = index;
+                listItem.innerHTML = '<a href="#" class="element-remove">&times;</a>'; 
+                listItem.appendChild(textInput);
+
+                $pantryList.appendChild(listItem);
             }
 
             /**
@@ -74,6 +94,13 @@
                 pantryItems.splice(parentIndex, 1);
 
                 safePantry();
+            }
+
+            /**
+             * Edit pantry item
+             */
+            function editElement(element) {
+                console.log(element);
             }
 
             /**

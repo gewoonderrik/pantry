@@ -240,4 +240,11 @@ main {
 .pantry-list li:last-of-type {
   border-bottom: 1px solid #999;
 }
+
+.pantry-list [type="text"] {
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+  width: auto;
+}
 /*# sourceMappingURL=main.css.map */
