@@ -1,0 +1,22 @@
+{
+  "name": "Pantry",
+  "version": "1.0.0",
+  "description": "🍴 Keep track of the items in your pantry and find recipes for them! ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-http-to-https": "^1.1.4",
+    "node-fetch": "^2.3.0"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gewoonderrik/pantry.git"
+  },
+  "license": "Apache2"
+}

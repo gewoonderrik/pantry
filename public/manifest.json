@@ -13,9 +13,7 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": "/",
     "background_color": "#F6BF59",
     "display": "standalone",
-    "scope": "/maps/",
     "theme_color": "#F6BF59"
 }
