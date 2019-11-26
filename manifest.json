@@ -1,0 +1,21 @@
+{
+    "short_name": "Pantry",
+    "name": "Pantry",
+    "icons": [
+        {
+            "src": "assets/images/icons/icons-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "assets/images/icons/icons-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#F6BF59",
+    "display": "standalone",
+    "scope": "/maps/",
+    "theme_color": "#F6BF59"
+}

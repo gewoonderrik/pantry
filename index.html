@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pantry.io</title>
         <link rel="stylesheet" href="assets/styles/main.css">
+        <link rel="manifest" href="manifest.json">
     </head>
     <body>
         <main>
@@ -23,12 +24,6 @@
 
             var pantryItems = JSON.parse(localStorage.getItem('pantry'));
 
-            var selectedItem = {
-              'index': '',
-              'oldValue': '',
-              'newvalue': '',
-            }
-
             /**
              * Click function
              */
@@ -46,11 +41,6 @@
 
                     element.focus();
                     element.select();
-
-                    selectedItem.index = element.parentNode.dataset.index;
-                    selectedItem.oldValue = element.value;
-
-                    editElement(element);
                 }
             }
 
@@ -74,10 +64,12 @@
 
                 textInput.className = 'pantry-item-text';
                 textInput.type = 'text';
+                textInput.dataset.originalvalue = element;
                 textInput.value = element;
 
                 listItem.dataset.index = index;
                 listItem.innerHTML = '<a href="#" class="element-remove">&times;</a>'; 
+
                 listItem.appendChild(textInput);
 
                 $pantryList.appendChild(listItem);
@@ -97,10 +89,22 @@
             }
 
             /**
-             * Edit pantry item
+             * Check pantry item
              */
-            function editElement(element) {
-                console.log(element);
+             function checkElement() {
+                var element = event.target;
+
+                if (element.classList.contains('pantry-item-text')) {
+                    var newValue = element.value;
+                    var originalValue = element.dataset.originalvalue;
+
+                    if (newValue !== originalValue) {
+                        var parentIndex = parseInt(element.parentElement.dataset.index);
+                        pantryItems[parentIndex] = newValue;
+
+                        safePantry();
+                    }
+                }
             }
 
             /**
@@ -141,12 +145,15 @@
                     localStorage.setItem('pantry', '[]');
                 } else {
                     pantryItems.forEach(function(element, index) {
-                        parseList(element, index)
+                        parseList(element, index);
                     });
                 }
 
                 // add event listener for clicks
                 document.addEventListener('click', clickHandler);
+
+                // add event listener for focusout(blur)
+                document.addEventListener('focusout', checkElement);
             }
 
             setup();
